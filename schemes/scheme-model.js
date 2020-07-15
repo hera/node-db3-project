@@ -4,7 +4,8 @@ module.exports = {
     find,
     findById,
     findSteps,
-    add
+    add,
+    update
 };
 
 function find () {
@@ -27,5 +28,13 @@ function add (scheme) {
         .insert(scheme, "id")
         .then(ids => {
             return findById(ids[0]);
-        })
+        });
+}
+
+function update (changes, schemeId) {
+    return findById(schemeId)
+        .update(changes)
+        .then(count => {
+            return findById(schemeId);
+        });
 }
